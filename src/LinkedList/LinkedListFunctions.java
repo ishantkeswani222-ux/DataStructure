@@ -1,5 +1,4 @@
 package LinkedList;
-
 public class LinkedListFunctions {
     // Node class
    public static class Node {
@@ -11,9 +10,10 @@ public class LinkedListFunctions {
     }
     // Linked list class
      public static class Linkedlist {
-        Node head = null; //by default it is also null in java
+        Node head = null; //by default, it is also null in java
         Node tail = null;
-        //insert at head
+        int size; ;
+
         void AddAtHead(int val){
             Node temp = new Node(val);
             if(head==null){
@@ -22,9 +22,9 @@ public class LinkedListFunctions {
             else {
                 temp.next = head;
                 head = temp;
+                size++;
             }
         }
-        // insert at tail
         void AddAtTail(int val){
             Node temp = new Node(val);
             if(head==null){
@@ -33,11 +33,11 @@ public class LinkedListFunctions {
             else {
                 tail.next = temp;
                 tail = temp;
+                size++;
             }
 
 
         }
-        // size method
         int Size(){
             int count = 0;
             Node temp = head;
@@ -47,7 +47,6 @@ public class LinkedListFunctions {
             }
             return count;
         }
-        //insert At index
         void insertAtIndex(int idx,int val){
             Node t = new Node(val);
             Node temp = head;
@@ -64,8 +63,8 @@ public class LinkedListFunctions {
             }
             t.next = temp.next;
             temp.next = t;
+            size++;
         }
-        // get value at Index
         int getAtIndex(int idx){
             Node temp  = head;
             for (int i = 1; i <=idx ; i++) {
@@ -74,8 +73,6 @@ public class LinkedListFunctions {
             return temp.val;
 
         }
-
-        // display method
         void display(){
             Node temp = head;
             if(head==null) return;
@@ -85,22 +82,58 @@ public class LinkedListFunctions {
             }
             System.out.println();
         }
+        void deleteAtHead(){
+            if(head==null){
+                System.out.println("List Is Empty!!!");
+            }
+            else {
+                head = head.next;
+            }
+            if(head==null) {// this is for 1 size list
+                tail = null;
+            }
+            size--;
+        }
+        boolean search(int val){
+            Node temp  = head;
+            if(head == null) return false;
+            while (temp!=null){
+                if(temp.val == val) return true;
+            }
+            return false;
+        }
+        void deleteAtIndex(int idx){
+            Node temp = head;
+            if(idx<0 || idx>=size){
+                System.out.print("invalid index");
+                return;
+            }
+            if(idx==0) {
+                deleteAtHead();
+                return;
+            }
+            for (int i = 1; i <=idx-1 ; i++) {
+                temp = temp.next;
+            }
+            temp.next = temp.next.next; // this line is deleting the node
+            if(idx == size-1) tail = temp; // deleting tail
+            size--;
+
+        }
 
     }
     static void main(String[] args) {
         Linkedlist ll = new Linkedlist();
-        ll.AddAtTail(4); //4
-        ll.display();
-        ll.AddAtTail(5); // 4 -> 5
-        ll.display();
-        ll.AddAtTail(12); //  4 -> 5 -> 12
-        ll.display();
-        ll.AddAtHead(13); // 13 -> 4 -> 5 -> 12
-        ll.display();
-        ll.insertAtIndex(2,10); // 13 -> 4 -> 10 -> 5 12
-        ll.display();
-        // value at any index
-        System.out.print("The value at index is "+" "+ll.getAtIndex(3));
+         ll.AddAtHead(3);
+         ll.AddAtTail(4);
+         ll.AddAtHead(5);
+         ll.AddAtHead(6);
+         ll.AddAtTail(6);
+         ll.display();
+         ll.deleteAtHead();
+         ll.display();
+         ll.search(5);
+
 
 
     }

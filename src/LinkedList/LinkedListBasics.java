@@ -2,6 +2,14 @@ package LinkedList;
 
 
 public class LinkedListBasics {
+    // Node class
+    static class Node {
+        int val;
+        Node next;
+        Node(int val){
+            this.val = val;
+        }
+    }
     // display method
     static void display(Node head){
         Node temp = head;
@@ -10,7 +18,6 @@ public class LinkedListBasics {
             temp = temp.next;
         }
     }
-
     // length method
     static int Length(Node head){
         int count = 0;
@@ -21,15 +28,14 @@ public class LinkedListBasics {
         return count;
 
     }
-    // Node class
-    static class Node {
-        int val;
-        Node next;
-        Node(int val){
-            this.val = val;
-        }
-
+    //  display recursively
+    public static void displayRec(Node head){
+        Node temp  = head;
+        if(temp==null) return;
+        System.out.println(temp.val);
+        displayRec(temp.next);
     }
+
      static void main(String[] args) {
         Node a = new Node(5);
         Node b = new Node(10);
@@ -44,7 +50,11 @@ public class LinkedListBasics {
         // length method
          System.out.println();
          int length = Length(a);
-         System.out.print("length of list is "+" "+length);
+//         System.out.print("length of list is "+" "+length);
+//         null pointer exception
+//         Node n = null;
+//         System.out.println(n.val); // these both will give null pointer exception
+//         System.out.println(n.next);
 
     }
 }

@@ -1,35 +1,6 @@
 package LinkedList.DoublyLinkedList;
 
 public class DoublyLinkedlist {
-    public static void display(Node head){
-        Node temp = head;
-        while (temp!=null){
-            System.out.print(temp.val+" ");
-            temp = temp.next;
-        }
-        System.out.println();
-    }
-    public static void displayRev(Node head){
-        Node temp = head;
-        while(temp!=null){
-            System.out.print(temp.val+" ");
-            temp = temp.prev;
-        }
-        System.out.println();
-    }
-    public static void displayRandom(Node random){ //random node is given
-        Node temp = random;
-        //we have to move backwards to the head
-        while (temp.prev != null){
-            temp = temp.prev;
-        }
-        // Now we are on head node we will simply print the list
-        while(temp!=null){
-            System.out.print(temp.val+" ");
-            temp = temp.next;
-        }
-        System.out.println();
-    }
     public static class Node {
         Node prev;
         Node next;
@@ -39,27 +10,91 @@ public class DoublyLinkedlist {
         }
 
     }
-    static void main(String[] args) {
-        //4 10 2 99 13
-        Node a = new Node(4);
-        Node b = new Node(10);
-        Node c = new Node(2);
-        Node d = new Node(99);
-        Node e = new Node(13);
-        // linking
-        a.prev = null;
-        a.next = b;
-        b.prev = a;
-        b.next = c;
-        c.prev = b;
-        c.next = d;
-        d.prev = c;
-        d.next = e;
-        e.prev = d;
-        display(a);
-        displayRev(e);
-        displayRandom(c);
 
+   public static class Dll {
+        Node head;
+        Node tail;
+        int size;
+        void insertAtHead(int val){
+            Node temp = new Node(val);
+            if(head==null) head = tail = temp;
+            else {
+                temp.next = head;
+                head.prev = temp;
+                head = temp;
+
+            }
+            size++;
+
+        }
+        void insertAtTail(int val){
+            Node temp = new Node(val);
+            if(head==null) head = tail = temp;
+            else{
+                tail.next = temp;
+                temp.prev = tail;
+                tail = temp;
+            }
+            size++;
+        }
+        void display(){
+            Node temp = head;
+            while(temp!=null){
+                System.out.print(temp.val+" ");
+                temp = temp.next;
+            }
+            System.out.println();
+        }
+        void displayReverse(){
+            Node temp = tail;
+            while(temp!=null){
+                System.out.print(temp.val+" ");
+                temp = temp.prev;
+            }
+            System.out.println();
+        }
+        void deleteAtHead(){
+            if(size==0) {
+                System.out.println("list is empty!");
+                return;
+            }
+            if(size==1)
+                head = tail = null;
+            else {
+                head = head.next;
+                head.prev = null;
+            }
+            size--;
+        }
+        void deleteAtTail(){
+            if(size==0){
+                System.out.println("list is empty");
+                return;
+            }
+            if(size==1)
+                head = tail = null;
+            else {
+                tail = tail.prev;
+                tail.next = null;
+            }
+            size--;
+        }
+
+    }
+    static void main(String[] args) {
+        Dll list = new Dll();
+        list.insertAtHead(10);
+        list.insertAtHead(20);
+        list.insertAtHead(30);
+        list.insertAtHead(40);
+        list.display();
+        list.insertAtTail(90);
+        list.display();
+        list.displayReverse();
+        list.deleteAtHead();
+        list.display();
+        list.deleteAtTail();
+        list.display();
 
 
     }
