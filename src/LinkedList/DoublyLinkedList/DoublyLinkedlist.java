@@ -79,6 +79,27 @@ public class DoublyLinkedlist {
             }
             size--;
         }
+        void insertAtIndex(int idx,int val){
+            Node a = new Node(val);
+            Node temp  = head;
+            if(idx<0){
+                System.out.println("invalid index");
+            }
+            if(idx==0){
+                insertAtHead(val);
+            }
+            if(idx==size){
+                insertAtTail(val);
+            }
+            for (int i = 1; i <=idx-1; i++) {
+                temp = temp.next;
+            }
+            a.prev = temp;
+            temp.next  = a;
+            a.next = temp.next;
+            a.next.prev = a;
+            size++;
+        }
 
     }
     static void main(String[] args) {
